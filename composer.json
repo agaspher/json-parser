@@ -1,5 +1,5 @@
 {
-    "name": "cerbero/json-parser",
+    "name": "agaspher/json-parser",
     "type": "library",
     "description": "Zero-dependencies pull parser to read large JSON from any source in a memory-efficient way.",
     "keywords": [
@@ -9,7 +9,7 @@
         "lexer",
         "memory"
     ],
-    "homepage": "https://github.com/cerbero90/json-parser",
+    "homepage": "https://github.com/agaspher/json-parser",
     "license": "MIT",
     "authors": [{
         "name": "Andrea Marco Sartori",
@@ -18,7 +18,7 @@
         "role": "Developer"
     }],
     "require": {
-        "php": "^8.1"
+        "php": "^7.4"
     },
     "require-dev": {
         "guzzlehttp/guzzle": "^7.2",
