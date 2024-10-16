@@ -43,7 +43,7 @@ abstract class Token implements Stringable
      * @param string $value
      * @return static
      */
-    public function setValue(string $value): static
+    public function setValue(string $value)
     {
         $this->value = $value;
 

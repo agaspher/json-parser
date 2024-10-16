@@ -41,13 +41,16 @@ final class Tree
      */
     private int $depth = -1;
 
+    private Pointers $pointers;
+
     /**
      * Instantiate the class.
      *
      * @param Pointers $pointers
      */
-    public function __construct(private readonly Pointers $pointers)
+    public function __construct(Pointers $pointers)
     {
+        $this->pointers = $pointers;
     }
 
     /**
@@ -204,7 +207,7 @@ final class Tree
      *
      * @return string|int
      */
-    public function currentKey(): string|int
+    public function currentKey()
     {
         $key = $this->original[$this->depth];
 

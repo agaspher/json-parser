@@ -41,7 +41,7 @@ final class CompoundBegin extends Token
      * @param string $value
      * @return static
      */
-    public function setValue(string $value): static
+    public function setValue(string $value)
     {
         $this->shouldLazyLoad = false;
 

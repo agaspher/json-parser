@@ -25,7 +25,9 @@ final class Lexer implements IteratorAggregate
      *
      * @var Progress
      */
-    private readonly Progress $progress;
+    private Progress $progress;
+
+    private Source $source;
 
     /**
      * The current position.
@@ -39,8 +41,9 @@ final class Lexer implements IteratorAggregate
      *
      * @param Source $source
      */
-    public function __construct(private readonly Source $source)
+    public function __construct(Source $source)
     {
+        $this->source = $source;
         $this->progress = new Progress();
     }
 
@@ -62,7 +65,10 @@ final class Lexer implements IteratorAggregate
                 $isEscaping = $character == '\\' && !$isEscaping;
 
                 if ($inString || !isset(Tokens::BOUNDARIES[$character])) {
-                    $buffer == '' && !isset(Tokens::TYPES[$character]) && throw new SyntaxException($character);
+                    if ($buffer == '' && !isset(Tokens::TYPES[$character])) {
+                        throw new SyntaxException($character);
+                    }
+
                     $buffer .= $character;
                     continue;
                 }

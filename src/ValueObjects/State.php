@@ -20,28 +20,31 @@ final class State
      *
      * @var Tree
      */
-    public readonly Tree $tree;
+    public $tree;
 
     /**
      * The JSON buffer.
      *
      * @var Parser|string
      */
-    private Parser|string $buffer = '';
+    private $buffer = '';
 
     /**
      * Whether an object key is expected.
      *
      * @var bool
      */
-    public bool $expectsKey = false;
+    public $expectsKey = false;
 
     /**
      * The expected token.
      *
      * @var int
      */
-    public int $expectedToken = Tokens::COMPOUND_BEGIN;
+    public $expectedToken = Tokens::COMPOUND_BEGIN;
+
+    public Pointers $pointers;
+    public Closure $lazyLoad;
 
     /**
      * Instantiate the class.
@@ -49,8 +52,10 @@ final class State
      * @param Pointers $pointers
      * @param Closure $lazyLoad
      */
-    public function __construct(private readonly Pointers $pointers, private readonly Closure $lazyLoad)
+    public function __construct(Pointers $pointers, Closure $lazyLoad)
     {
+        $this->pointers = $pointers;
+        $this->lazyLoad = $lazyLoad;
         $this->tree = new Tree($pointers);
     }
 
@@ -71,7 +76,7 @@ final class State
      * @param mixed $key
      * @return mixed
      */
-    public function callPointer(mixed $value, mixed &$key): mixed
+    public function callPointer($value, &$key)
     {
         return $this->pointers->matching()->call($value, $key);
     }
@@ -93,7 +98,6 @@ final class State
                 $this->buffer = ($this->lazyLoad)();
                 $token->shouldLazyLoad = true;
             } else {
-                /** @phpstan-ignore-next-line */
                 $this->buffer .= $token;
             }
         }
@@ -116,7 +120,7 @@ final class State
      *
      * @return Parser|string
      */
-    public function value(): Parser|string
+    public function value()
     {
         $buffer = $this->buffer;
 

@@ -8,14 +8,19 @@ namespace Cerbero\JsonParser\Decoders;
  */
 final class JsonDecoder extends AbstractDecoder
 {
+    private bool $decodesToArray = true;
+    private int $depth = 512;
+
     /**
      * Instantiate the class.
      *
      * @param bool $decodesToArray
      * @param int<1, max> $depth
      */
-    public function __construct(private readonly bool $decodesToArray = true, private readonly int $depth = 512)
+    public function __construct(bool $decodesToArray = true, int $depth = 512)
     {
+        $this->depth = $depth;
+        $this->decodesToArray = $decodesToArray;
     }
 
     /**
@@ -25,7 +30,7 @@ final class JsonDecoder extends AbstractDecoder
      * @return mixed
      * @throws \Throwable
      */
-    protected function decodeJson(string $json): mixed
+    protected function decodeJson(string $json)
     {
         return json_decode($json, $this->decodesToArray, $this->depth, JSON_THROW_ON_ERROR);
     }

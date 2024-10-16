@@ -25,7 +25,7 @@ final class Parser implements IteratorAggregate
      *
      * @var ConfigurableDecoder
      */
-    private readonly ConfigurableDecoder $decoder;
+    private ConfigurableDecoder $decoder;
 
     /**
      * Whether the parser is fast-forwarding.
@@ -34,14 +34,20 @@ final class Parser implements IteratorAggregate
      */
     private bool $isFastForwarding = false;
 
+    private Generator $tokens;
+
+    private Config $config;
+
     /**
      * Instantiate the class.
      *
      * @param Generator<int, Token> $tokens
      * @param Config $config
      */
-    public function __construct(private readonly Generator $tokens, private readonly Config $config)
+    public function __construct(Generator $tokens, Config $config)
     {
+        $this->tokens = $tokens;
+        $this->config = $config;
         $this->decoder = new ConfigurableDecoder($config);
     }
 

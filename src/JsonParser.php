@@ -27,21 +27,21 @@ final class JsonParser implements IteratorAggregate
      *
      * @var Config
      */
-    private readonly Config $config;
+    private Config $config;
 
     /**
      * The lexer.
      *
      * @var Lexer
      */
-    private readonly Lexer $lexer;
+    private Lexer $lexer;
 
     /**
      * The parser.
      *
      * @var Parser
      */
-    private readonly Parser $parser;
+    private Parser $parser;
 
     /**
      * Instantiate the class statically
@@ -59,7 +59,7 @@ final class JsonParser implements IteratorAggregate
      *
      * @param mixed $source
      */
-    public function __construct(mixed $source)
+    public function __construct($source)
     {
         $this->config = new Config();
         $this->lexer = new Lexer(new AnySource($source, $this->config));

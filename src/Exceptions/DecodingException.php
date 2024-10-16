@@ -11,13 +11,17 @@ use Exception;
  */
 final class DecodingException extends Exception implements JsonParserException
 {
+    public DecodedValue $decoded;
+
     /**
      * Instantiate the class
      *
      * @param DecodedValue $decoded
      */
-    public function __construct(public readonly DecodedValue $decoded)
+    public function __construct(DecodedValue $decoded)
     {
-        parent::__construct('Decoding error: ' . $decoded->error, (int) $decoded->code);
+        $this->decoded = $decoded;
+
+        parent::__construct('Decoding error: ' . $decoded->error, (int)$decoded->code);
     }
 }

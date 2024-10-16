@@ -12,12 +12,18 @@ use Cerbero\JsonParser\ValueObjects\Config;
 final class ConfigurableDecoder
 {
     /**
+     * @var Config
+     */
+    private Config $config;
+
+    /**
      * Instantiate the class.
      *
      * @param Config $config
      */
-    public function __construct(private readonly Config $config)
+    public function __construct(Config $config)
     {
+        $this->config = $config;
     }
 
     /**
@@ -26,7 +32,7 @@ final class ConfigurableDecoder
      * @param Parser|string|int $value
      * @return mixed
      */
-    public function decode(Parser|string|int $value): mixed
+    public function decode($value)
     {
         if (!is_string($value)) {
             return $value;

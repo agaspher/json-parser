@@ -17,7 +17,7 @@ abstract class AbstractDecoder implements Decoder
      * @return mixed
      * @throws Throwable
      */
-    abstract protected function decodeJson(string $json): mixed;
+    abstract protected function decodeJson(string $json);
 
     /**
      * Decode the given JSON.

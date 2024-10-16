@@ -43,7 +43,7 @@ trait GuzzleAware
      * @param UriInterface|string $url
      * @return ResponseInterface
      */
-    protected function getJson(UriInterface|string $url): ResponseInterface
+    protected function getJson($url): ResponseInterface
     {
         return $this->guzzle()->get($url, [
             'headers' => [

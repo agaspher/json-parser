@@ -22,14 +22,14 @@ final class Pointer implements Stringable
      *
      * @var string[]
      */
-    public readonly array $referenceTokens;
+    public array $referenceTokens;
 
     /**
      * The pointer depth.
      *
      * @var int
      */
-    public readonly int $depth;
+    public int $depth;
 
     /**
      * Whether the pointer was found.
@@ -37,6 +37,10 @@ final class Pointer implements Stringable
      * @var bool
      */
     public bool $wasFound = false;
+
+    public string $pointer;
+    public bool $isLazy = false;
+    public ?Closure $callback = null;
 
     /**
      * Instantiate the class.
@@ -46,10 +50,14 @@ final class Pointer implements Stringable
      * @param Closure|null $callback
      */
     public function __construct(
-        private readonly string $pointer,
-        public readonly bool $isLazy = false,
-        private readonly ?Closure $callback = null,
+        string $pointer,
+        bool $isLazy = false,
+        ?Closure $callback = null
     ) {
+        $this->pointer = $pointer;
+        $this->isLazy = $isLazy;
+        $this->callback = $callback;
+
         $this->referenceTokens = $this->toReferenceTokens();
         $this->depth = count($this->referenceTokens);
     }
@@ -78,7 +86,7 @@ final class Pointer implements Stringable
      * @param mixed $key
      * @return mixed
      */
-    public function call(mixed $value, mixed &$key): mixed
+    public function call($value, &$key)
     {
         if ($this->callback === null) {
             return $value;
@@ -94,7 +102,7 @@ final class Pointer implements Stringable
      * @param string|int $key
      * @return bool
      */
-    public function depthMatchesKey(int $depth, string|int $key): bool
+    public function depthMatchesKey(int $depth, $key): bool
     {
         $referenceToken = $this->referenceTokens[$depth] ?? null;
 

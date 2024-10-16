@@ -28,6 +28,10 @@ abstract class Source implements IteratorAggregate
      */
     protected bool $sizeWasSet = false;
 
+    protected $source;
+
+    protected Config $config;
+
     /**
      * Retrieve the JSON fragments
      *
@@ -56,9 +60,11 @@ abstract class Source implements IteratorAggregate
      * @param Config $config
      */
     final public function __construct(
-        protected readonly mixed $source,
-        protected readonly Config $config = new Config(),
+        $source,
+        Config $config
     ) {
+        $this->source = $source;
+        $this->config = $config ?? new Config();
     }
 
     /**
