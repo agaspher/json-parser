@@ -49,7 +49,7 @@ final class JsonParser implements IteratorAggregate
      * @param mixed $source
      * @return self
      */
-    public static function parse(mixed $source): self
+    public static function parse($source): self
     {
         return new self($source);
     }

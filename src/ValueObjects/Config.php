@@ -75,9 +75,7 @@ final class Config
         $this->onSyntaxError = function (SyntaxException $e) {
             throw $e;
         };
-        $this->wrapper = function (Parser $parser) {
-            $parser;
-        };
+        $this->wrapper = fn(Parser $parser) => $parser;
     }
 
     /**

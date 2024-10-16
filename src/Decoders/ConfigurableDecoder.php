@@ -11,9 +11,6 @@ use Cerbero\JsonParser\ValueObjects\Config;
  */
 final class ConfigurableDecoder
 {
-    /**
-     * @var Config
-     */
     private Config $config;
 
     /**

@@ -20,7 +20,7 @@ final class State
      *
      * @var Tree
      */
-    public $tree;
+    public Tree $tree;
 
     /**
      * The JSON buffer.
@@ -34,17 +34,17 @@ final class State
      *
      * @var bool
      */
-    public $expectsKey = false;
+    public bool $expectsKey = false;
 
     /**
      * The expected token.
      *
      * @var int
      */
-    public $expectedToken = Tokens::COMPOUND_BEGIN;
+    public int $expectedToken = Tokens::COMPOUND_BEGIN;
 
-    public Pointers $pointers;
-    public Closure $lazyLoad;
+    private ?Pointers $pointers;
+    private Closure $lazyload;
 
     /**
      * Instantiate the class.
@@ -55,7 +55,7 @@ final class State
     public function __construct(Pointers $pointers, Closure $lazyLoad)
     {
         $this->pointers = $pointers;
-        $this->lazyLoad = $lazyLoad;
+        $this->lazyload = $lazyLoad;
         $this->tree = new Tree($pointers);
     }
 
@@ -98,6 +98,7 @@ final class State
                 $this->buffer = ($this->lazyLoad)();
                 $token->shouldLazyLoad = true;
             } else {
+                /** @phpstan-ignore-next-line */
                 $this->buffer .= $token;
             }
         }

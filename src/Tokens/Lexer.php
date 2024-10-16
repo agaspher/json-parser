@@ -28,7 +28,6 @@ final class Lexer implements IteratorAggregate
     private Progress $progress;
 
     private Source $source;
-
     /**
      * The current position.
      *
@@ -65,10 +64,9 @@ final class Lexer implements IteratorAggregate
                 $isEscaping = $character == '\\' && !$isEscaping;
 
                 if ($inString || !isset(Tokens::BOUNDARIES[$character])) {
-                    if ($buffer == '' && !isset(Tokens::TYPES[$character])) {
+                    if ($buffer === '' && !isset(Tokens::TYPES[$character])) {
                         throw new SyntaxException($character);
                     }
-
                     $buffer .= $character;
                     continue;
                 }

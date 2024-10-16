@@ -38,9 +38,9 @@ final class Pointer implements Stringable
      */
     public bool $wasFound = false;
 
-    public string $pointer;
+    private string $pointer;
     public bool $isLazy = false;
-    public ?Closure $callback = null;
+    private ?Closure $callback;
 
     /**
      * Instantiate the class.

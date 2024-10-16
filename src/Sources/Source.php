@@ -28,10 +28,6 @@ abstract class Source implements IteratorAggregate
      */
     protected bool $sizeWasSet = false;
 
-    protected $source;
-
-    protected Config $config;
-
     /**
      * Retrieve the JSON fragments
      *
@@ -53,6 +49,9 @@ abstract class Source implements IteratorAggregate
      */
     abstract protected function calculateSize(): ?int;
 
+    protected $source;
+    protected Config $config;
+
     /**
      * Instantiate the class.
      *
@@ -61,7 +60,7 @@ abstract class Source implements IteratorAggregate
      */
     final public function __construct(
         $source,
-        Config $config
+        ?Config $config
     ) {
         $this->source = $source;
         $this->config = $config ?? new Config();

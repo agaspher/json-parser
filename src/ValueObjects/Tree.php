@@ -40,7 +40,6 @@ final class Tree
      * @var int
      */
     private int $depth = -1;
-
     private Pointers $pointers;
 
     /**

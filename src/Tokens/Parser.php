@@ -35,7 +35,6 @@ final class Parser implements IteratorAggregate
     private bool $isFastForwarding = false;
 
     private Generator $tokens;
-
     private Config $config;
 
     /**
@@ -46,8 +45,8 @@ final class Parser implements IteratorAggregate
      */
     public function __construct(Generator $tokens, Config $config)
     {
-        $this->tokens = $tokens;
         $this->config = $config;
+        $this->tokens = $tokens;
         $this->decoder = new ConfigurableDecoder($config);
     }
 
